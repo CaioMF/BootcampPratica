@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Previous arr[] = new People[5];
+        Previous<People> arr[] = new People[5];
 
         arr[0] = new People("Caio","000000000");
         arr[1] = new People("Max","000000001");
@@ -16,7 +16,7 @@ public class Main {
 
         System.out.println(Arrays.toString(arr));
 
-        Previous arrCell[] = new Cell[3];
+        Previous<Cell> arrCell[] = new Cell[3];
 
         arrCell[0] = new Cell("999999999",(People) arr[1]);
         arrCell[1] = new Cell("111111111",(People) arr[2]);

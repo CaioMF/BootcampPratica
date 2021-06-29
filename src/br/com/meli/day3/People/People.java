@@ -1,6 +1,6 @@
 package br.com.meli.day3.People;
 
-public class People implements Previous{
+public class People implements Previous<People>{
 
     private String name;
     private String cpf;
@@ -27,8 +27,8 @@ public class People implements Previous{
     }
 
     @Override
-    public int previousA(Previous o) {
-        return ((People) o).getName().compareTo(this.name);
+    public int previousA(People o) {
+        return o.getName().compareTo(this.name);
     }
 
     @Override

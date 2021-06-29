@@ -1,6 +1,6 @@
 package br.com.meli.day3.People;
 
-public class Cell implements Previous {
+public class Cell implements Previous<Cell> {
 
     private String number;
     private People Holder;
@@ -27,9 +27,9 @@ public class Cell implements Previous {
     }
 
     @Override
-    public int previousA(Previous o) {
+    public int previousA(Cell o) {
 
-        return ((Cell) o).getNumber().compareTo(this.number);
+        return o.getNumber().compareTo(this.number);
 
     }
 
