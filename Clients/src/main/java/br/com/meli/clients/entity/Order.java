@@ -1,17 +1,37 @@
 package br.com.meli.clients.entity;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+
+@Entity
+@Table(name="order_tb")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private List<Product> products;
-    private double totalValue;
 
-    public Order(long id, List<Product> products, double totalValue) {
+    @ManyToOne
+    private Client client;
+
+    @OneToMany
+    private List<Product> products;
+
+    private double totalValue;
+    private LocalDate date;
+
+    public Order(long id, List<Product> products, double totalValue,LocalDate date) {
         this.id = id;
         this.products = products;
         this.totalValue = totalValue;
+        this.date = date;
+    }
+
+    public Order() {
+
     }
 
     public long getId() {

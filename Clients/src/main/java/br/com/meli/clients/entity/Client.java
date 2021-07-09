@@ -1,14 +1,21 @@
 package br.com.meli.clients.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Client {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
     private String phone;
     private String cpf;
     private String email;
+
+    @OneToMany
     private List<Order> orders;
 
     public Client(long id, String name, String phone, String cpf, String email, List<Order> orders) {
@@ -18,6 +25,10 @@ public class Client {
         this.cpf = cpf;
         this.email = email;
         this.orders = orders;
+    }
+
+    public Client() {
+
     }
 
     public long getId() {

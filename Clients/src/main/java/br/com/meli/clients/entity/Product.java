@@ -1,19 +1,32 @@
 package br.com.meli.clients.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int count;
     private double value;
     private String description;
     private String color;
 
-    public Product(long id, int count, double value, String description, String color) {
+    @ManyToOne
+    private Order order;
+
+    public Product(long id, int count, double value, String description, String color, Order order) {
         this.id = id;
         this.count = count;
         this.value = value;
         this.description = description;
         this.color = color;
+        this.order = order;
+    }
+
+    public Product() {
+
     }
 
     public long getId() {
