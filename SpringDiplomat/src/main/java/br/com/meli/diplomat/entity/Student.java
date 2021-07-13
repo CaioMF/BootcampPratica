@@ -4,10 +4,12 @@ import java.util.List;
 
 public class Student {
 
+    private long id;
     private String name;
     private List<Subject> subjects;
 
-    public Student(String name, List<Subject> subjects) {
+    public Student(long id,String name, List<Subject> subjects) {
+        this.id = id;
         this.name = name;
         this.subjects = subjects;
     }
@@ -28,7 +30,12 @@ public class Student {
         this.name = name;
     }
 
-    public double getAvg(){
-        return subjects.stream().mapToDouble(Subject::getGrade).average().orElseThrow(RuntimeException::new);
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

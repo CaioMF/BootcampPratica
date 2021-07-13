@@ -1,19 +1,54 @@
 package br.com.meli.diplomat.sevices;
 
 import br.com.meli.diplomat.entity.Student;
+import br.com.meli.diplomat.entity.Subject;
+import br.com.meli.diplomat.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class StudentService {
 
-    public static  String diplomat(Student s){
+    private final StudentRepository studentRepository;
 
-        String msg = "Aqui está seu diploma " + s.getName() + ", sua média foi: " + s.getAvg();
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
-        if(s.getAvg() >= 9.0){
-            return msg + " parábens!";
-        }
+    public String diplomat(long id){
+
+        Student s = studentRepository.findById(id);
+
+        double avg = calculateAverage(id);
+
+        String msg = "Aqui está seu diploma " + s.getName() + ", sua média foi: " + String.format("%.2f",avg);
 
         return msg;
 
     }
+
+    public String withHonors(long id){
+
+        if(calculateAverage(id) >= 9.0){
+            return "Parábens!";
+        }
+        return "Nice try";
+    }
+
+    public List<Subject> analyzeNotes(long id){
+
+        return  studentRepository.findById(id).getSubjects();
+
+    }
+
+    public double calculateAverage(long id){
+
+        return analyzeNotes(id).stream().mapToDouble(Subject::getNote).average().orElseThrow(RuntimeException::new);
+    }
+
+
 
 }
