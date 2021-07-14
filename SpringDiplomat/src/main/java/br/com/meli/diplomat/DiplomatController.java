@@ -1,26 +1,39 @@
 package br.com.meli.diplomat;
 
+import br.com.meli.diplomat.dto.SubjectDTO;
 import br.com.meli.diplomat.entity.Student;
-import br.com.meli.diplomat.sevices.StudentService;
+import br.com.meli.diplomat.sevices.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class DiplomatController {
 
-    private final StudentService studentService;
+    private final CertificateService certificateService;
 
     @Autowired
-    public DiplomatController(StudentService studentService) {
-        this.studentService =  studentService;
+    public DiplomatController(CertificateService certificateService) {
+        this.certificateService = certificateService;
     }
 
     @PostMapping
-    public String getDiplomat(@RequestBody Student s){
+    public String getDiplomat(@Valid @RequestBody Student s){
 
-        return studentService.diplomat(1);
+        return certificateService.diplomat(s.getId());
+
+    }
+
+    @GetMapping
+    public List<SubjectDTO> getSubject(@RequestBody Student s){
+
+        return certificateService.analyzeNotes(s.getId()).stream().map(SubjectDTO::convert).collect(Collectors.toList());
 
     }
 

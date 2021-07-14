@@ -9,16 +9,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentService {
+public class CertificateService {
 
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public CertificateService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     public String diplomat(long id){
+        System.out.println(id);
 
         Student s = studentRepository.findById(id);
 
@@ -39,7 +40,7 @@ public class StudentService {
     }
 
     public List<Subject> analyzeNotes(long id){
-
+        System.out.println("ress");
         return  studentRepository.findById(id).getSubjects();
 
     }

@@ -3,13 +3,12 @@ package br.com.meli.diplomat;
 import br.com.meli.diplomat.entity.Student;
 import br.com.meli.diplomat.entity.Subject;
 import br.com.meli.diplomat.repository.StudentRepository;
-import br.com.meli.diplomat.sevices.StudentService;
+import br.com.meli.diplomat.sevices.CertificateService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class CertificateServiceImplTest {
 
     private List<Subject> subjects;
     StudentRepository repository;
-    StudentService studentService;
+    CertificateService certificateService;
 
     @BeforeEach
     public void init(){
@@ -30,14 +29,14 @@ public class CertificateServiceImplTest {
         subjects.add(new Subject("Fisica", 10));
 
         repository = new StudentRepository(new Student(1,"Caio",subjects));
-        studentService = new StudentService(repository);
+        certificateService = new CertificateService(repository);
 
     }
 
     @Test
     public void analyzeNotesTestEquals(){
 
-        Assertions.assertEquals(subjects,studentService.analyzeNotes(1));
+        Assertions.assertEquals(subjects, certificateService.analyzeNotes(1));
 
     }
 
@@ -49,44 +48,42 @@ public class CertificateServiceImplTest {
         newSubjects.add(new Subject("Matematica", 7));
         newSubjects.add(new Subject("Portugues", 5));
 
-        Assertions.assertNotEquals(newSubjects,studentService.analyzeNotes(1));
+        Assertions.assertNotEquals(newSubjects, certificateService.analyzeNotes(1));
 
     }
 
     @Test
     public void calculateAverageTestEquals(){
 
-        Assertions.assertEquals("7,33", String.format("%.2f",studentService.calculateAverage(1)));
+        Assertions.assertEquals("7,33", String.format("%.2f", certificateService.calculateAverage(1)));
 
     }
 
     @Test
     public void calculateAverageTestNotEquals(){
 
-        Assertions.assertNotEquals("9,00", String.format("%.2f",studentService.calculateAverage(1)));
+        Assertions.assertNotEquals("9,00", String.format("%.2f", certificateService.calculateAverage(1)));
 
     }
 
     @Test
     public void writeDiplomaTestEquals(){
-        Assertions.assertEquals("Aqui está seu diploma Caio, sua média foi: 7,33",studentService.diplomat(1));
+        Assertions.assertEquals("Aqui está seu diploma Caio, sua média foi: 7,33", certificateService.diplomat(1));
     }
 
     @Test
     public void writeDiplomaTestNotEquals(){
-        Assertions.assertNotEquals("Aqui está seu diploma, sua média foi:",studentService.diplomat(1));
+        Assertions.assertNotEquals("Aqui está seu diploma, sua média foi:", certificateService.diplomat(1));
     }
 
     @Test
     public void withHonorsTestEquals(){
-        Assertions.assertEquals("Nice try",studentService.withHonors(1));
+        Assertions.assertEquals("Nice try", certificateService.withHonors(1));
     }
 
     @Test
     public void withHonorsTestNotEquals(){
-        Assertions.assertNotEquals("Parabens",studentService.withHonors(1));
+        Assertions.assertNotEquals("Parabens", certificateService.withHonors(1));
     }
-
-
 
 }
