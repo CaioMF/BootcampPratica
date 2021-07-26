@@ -24,12 +24,12 @@ public class TurnsController {
         turnService.insert(turn);
     }
 
-    @GetMapping("doctor/{value}")
+    @GetMapping("doctor/{email}")
     public List<Turns> findByDoctor(@PathVariable String email){
         return turnService.findByDoctor(email);
     }
 
-    @GetMapping("status/{value}")
+    @GetMapping("status/{status}")
     public List<Turns> findByStatus(@PathVariable String status){
         return turnService.findByDoctor(status);
     }
